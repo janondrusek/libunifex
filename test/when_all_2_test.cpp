@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 #include <unifex/allocate.hpp>
+#include <unifex/any_sender_of.hpp>
 #include <unifex/finally.hpp>
 #include <unifex/get_stop_token.hpp>
 #include <unifex/just.hpp>
@@ -214,4 +215,8 @@ TEST(WhenAll2, ErrorCancelsRest) {
         just_from([]() { throw 1; })));
   } catch (...) {
   }
+}
+
+TEST(WhenAll2, ShouldCompile) {
+  sync_wait(when_all(just(), just(), any_sender_of<int>{just(0)}));
 }
